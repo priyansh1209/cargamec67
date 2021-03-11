@@ -13,34 +13,47 @@ class Game{
             gameState:state
         })
     }
-    start(){
+   async start(){
         if(gameState === 0){
             player = new Player()
-            player.getPlayerCount()  
+            var playerCountRef = await db.ref("playerCount").once("value")
+            if(playerCountRef.exists()){
+                playerCount = playerCountRef.val()
+                player.getPlayerCount() 
+            }
             form = new Form()
             form.display()
         }
+        car1 = createSprite(100,200)
+        car2 = createSprite(300,200)
+        car3 = createSprite(500,200)
+        car4 = createSprite(700,200)
+        cars = [car1,car2,car3,car4]
     }
     play(){
         form.hide()
-        textSize(25)
-        text("game start",50,50)
         Player.getPlayerInfo()
         if(allPlayers !== undefined){
-            var displayPos = 100
+            var index = 0
+            var x = 100
+            var y 
             for(var w in allPlayers){
-            displayPos = displayPos + 50
-            fill("blue")
-            if(w === "player"+player.index){
-                fill("red")
+                index = index + 1
+                x = x + 200
+                y = displayHeight-allPlayers[w].distance
+                cars[index-1].x = x
+                cars[index-1].y = y
+                if(index === player.index){
+                    cars[index-1].shapeColor = "red"
+                    camera.position.x = displayWidth/2
+                    camera.position.y = cars[index-1].y
+                }
             }
-            text(allPlayers[w].name+" : "+allPlayers[w].distance,120,displayPos)
-            }
-            console.log(allPlayers)
         }
         if(keyIsDown(UP_ARROW) && player.index !== null){
             player.distance = player.distance + 5
             player.update()
         }
+        drawSprites()
     }
 }

@@ -12,9 +12,9 @@ class Form{
     display(){
         var title = createElement("h3")
         title.html("car racing game")
-        title.position(130,20)
-        this.button.position(130,300)
-        this.input.position(130,200)
+        title.position(displayWidth/2-50,20)
+        this.button.position(displayWidth/2-50,displayHeight/2+50)
+        this.input.position(displayWidth/2-50,displayHeight/3)
 
         this.button.mousePressed(()=>{
             this.input.hide()
@@ -26,7 +26,7 @@ class Form{
             player.update()
 
             this.greeting.html("welcome "+ player.name)
-            this.greeting.position(20,440)
+            this.greeting.position(displayWidth/4,displayHeight/2+50)
         })
     }
 }
