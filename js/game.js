@@ -44,17 +44,24 @@ class Game{
             var index = 0
             var x = 200
             var y 
+            
             for(var w in allPlayers){
                 index = index + 1
                 x = x + 300
                 y = displayHeight-allPlayers[w].distance
                 cars[index-1].x = x
                 cars[index-1].y = y
+                console.log(allPlayers[w].name)
+                textSize(15)
+                fill(255,0,0)
+               
                 if(index === player.index){
-                    cars[index-1].shapeColor = "red"
+                    textSize(15)
+                    fill(0,255,0)
                     camera.position.x = displayWidth/2
                     camera.position.y = cars[index-1].y
                 }
+                text("player: "+allPlayers[w].name,x-15,y+80)
             }
         }
         if(keyIsDown(UP_ARROW) && player.index !== null){
