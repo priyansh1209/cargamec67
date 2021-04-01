@@ -38,6 +38,8 @@ class Game{
     play(){
         form.hide()
         Player.getPlayerInfo()
+        player.getCarsAtEnd()
+        console.log(player.distance)
         if(allPlayers !== undefined){
             background(groundImage)
             image(track1Image,0,-displayHeight*4,displayWidth,displayHeight*5)
@@ -51,7 +53,6 @@ class Game{
                 y = displayHeight-allPlayers[w].distance
                 cars[index-1].x = x
                 cars[index-1].y = y
-                console.log(allPlayers[w].name)
                 textSize(15)
                 fill(255,0,0)
                
@@ -65,16 +66,29 @@ class Game{
             }
         }
         if(keyIsDown(UP_ARROW) && player.index !== null){
-            player.distance = player.distance + 5
+            player.distance = player.distance + 50
             player.update()
         }
         if(player.distance >= displayHeight*5){
+            player.rank += 1
+            Player.updateRank(player.rank)
+            player.update()
             gameState = 2
+            
         }
-        console.log(gameState)
         drawSprites()
     }
     end(){
-        console.log("game ended")
+        Player.getPlayerInfo()
+        clear()
+        console.log(allPlayers)
+        var y = -4320
+        console.log(y)
+        for(var w in allPlayers){
+            textSize(20)
+            fill("blue")
+            y = y + 100
+            text(w+" : "+allPlayers[w].rank,200,y)
+            }
     }
 }

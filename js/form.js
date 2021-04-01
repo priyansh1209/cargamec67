@@ -34,7 +34,8 @@ class Form{
         this.resetButton.mousePressed(()=>{
             player.updateCount(0)
             game.update(0)
-            location.reload()
+            Player.updateRank(0)
+            location.reload()  
         })
     }
 }
